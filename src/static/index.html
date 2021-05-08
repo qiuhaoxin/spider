@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script>
+</head>
+<body>
+    <script>
+        function testJSONP(url){
+            const scriptTag=document.createElement('SCRIPT');
+            scriptTag.src=url;
+            scriptTag.type="text/javascript";
+            document.getElementsByTagName('head')[0].appendChild(scriptTag);
+        }
+        function mockJSONP(data){
+             console.log("mock json p is ",data);
+        }
+        // testJSONP("http://172.20.158.52:9010/jsonp?callback=mockJSONP");
+    </script>
+    <script>
+
+        function sendXhr(url,callback){
+            const xhr=new XMLHttpRequest();
+            xhr.open('PUT',url);
+            xhr.setRequestHeader('X-Customer-Header','qhx')
+            xhr.onreadystatechange=function(){
+                if(xhr.readyState==XMLHttpRequest.DONE){
+                    console.log("hei");
+                }
+                const headers=xhr.getResponseHeader('Content-Language');
+                console.log("headers is ",headers);
+                console.log('cookie is ',document.cookie)
+                // console.log('foobar is ',xhr.getResponseHeader('FooBar'));
+            }
+            xhr.onerror=function(err){
+                console.error("xhr error ",err);
+            }
+            xhr.send();
+        }
+        // sendXhr('http://172.20.158.52:9010/simpleCors',function(){
+
+        // });
+        sendXhr('http://172.20.158.52:9010/flightCors',function(){
+
+        });
+
+    </script>
+</body>
+</html>
